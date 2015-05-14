@@ -9,4 +9,4 @@ This goal of this customization is to provide a specific multinomial model formu
 
 Once an MOS application instance has been defined, it can be run and shared like any Shiny application (and there are a lot of options for [sharing a Shiny application](http://shiny.rstudio.com/tutorial/lesson7/)).
 
-A demonstration MOS instance hosted on AWS can be viewed [here]()**(Not Yet). The complete code for the instance is available [here]()**(Nope - Not Yet Either)**.
+A demonstration MOS instance hosted on AWS can be viewed [here]()**(Not Yet)**. The complete code for the instance is available [here]()**(Nope - Not Yet Either)**.
