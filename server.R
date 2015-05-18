@@ -132,6 +132,7 @@ shinyServer(function(input, output, session) {
                       variables_to_drop = isolate(x_axis_raw_name())),
         
         ({updateButton(session, "update_explore_cf_cases",
+                       label = "UPDATE PLOT",
                        disabled = FALSE,
                        style = "danger")
         })
@@ -141,6 +142,7 @@ shinyServer(function(input, output, session) {
         input$update_explore_cf_cases,
         
         ({updateButton(session, "update_explore_cf_cases",
+                       label = "PLOT UPDATED",
                        disabled = TRUE,
                        style = "success")
           
@@ -156,9 +158,16 @@ shinyServer(function(input, output, session) {
                       use_slider_values = TRUE,
                       use_dropdown_values = TRUE),
         
-        ({updateButton(session, "update_sc_cf_cases",
-                       disabled = FALSE,
-                       style = "danger")
+        ({if(isolate(input$update_sc_cf_cases) == 0) {
+            updateButton(session, "update_sc_cf_cases",
+                         label = "RUN FIRST SIMULATION",
+                         style = "warning")
+        } else {
+            updateButton(session, "update_sc_cf_cases",
+                         label = "RE-SIMULATE",
+                         disabled = FALSE,
+                         style = "danger")
+        }
         })
     )
     
@@ -166,6 +175,7 @@ shinyServer(function(input, output, session) {
         input$update_sc_cf_cases,
         
         ({updateButton(session, "update_sc_cf_cases",
+                       label = "SIMULATION UPDATED",
                        disabled = TRUE,
                        style = "success")
           
@@ -189,8 +199,9 @@ shinyServer(function(input, output, session) {
         input$update_explore_cf_cases
         
         # this next section only gets evaluated if the "Show sliders?" option is
-        # set to TRUE - in that case, the slider values should be used to 
-        # create an updated data object
+        # set to TRUE - in that case, the slider values will be used to 
+        # create an updated data object each time the "UPDATE PLOT" button is
+        # clicked
         # NOTE: the "Update Plot" button will only be visible if the "Show
         #       sliders?" option is set to true, so we are restricting our
         #       update pathways to just TWO possibilities:
@@ -199,7 +210,10 @@ shinyServer(function(input, output, session) {
         #       2. a new x-axis is selected (refreshes the plots that use
         #          explore_cf_cases() and resets the sliders if they are 
         #          visible)
-        if(isolate(input$slider_show)) {
+        # because "input$slider_show" is not isolated, we also get the desired
+        # behavior that the data is restored to its default state if the
+        # "Advanced Options" box is unticked
+        if(input$slider_show & input$update_explore_cf_cases > 0) {
             # note that the update_target here is allowed to be reactive
             # to create a reactive link when the sliders are visible
             apply_input_values(update_target = base_cf_cases(), 
@@ -310,7 +324,12 @@ shinyServer(function(input, output, session) {
     
     # construct the summary text for constructed ribbon plot
     output$ribbon_text <- renderText({
-        build_ribbon_summary(x_axis_raw_name(), variable_configuration)
+        build_ribbon_summary(x_axis_raw_name(), 
+                             variable_configuration,
+                             # if "Advanced Options" selected, we want to drop
+                             # the plot summary
+                             include_plot_summary = !input$slider_show)
+        
     })
     
     # "Single Case Mode" dot cloud plot
