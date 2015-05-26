@@ -2,7 +2,7 @@
 # Contact: bwaismeyer@gmail.com
 
 # Date created: 5/12/2015
-# Date updated: 5/14/2015
+# Date updated: 5/26/2015
 
 ###############################################################################
 ## SCRIPT OVERVIEW
@@ -116,6 +116,11 @@ base_formula <-
 #                               ribbon plot when this variable is seleted as
 #                               the x-axis (OPTIONAL, only useful for slider
 #                               variables),
+#         custom_x_axis_ticks = NULL or a character vector with as many items
+#                               as there are ribbon plot x-axis ticks; the
+#                               x-axis tick labels will be replaced with the
+#                               character vector items in the order they are
+#                               given
 #         x_axis_candiate     = TRUE or FALSE, allow the variable to be
 #                               selected as the x-axis on the ribbon plot
 #                               (REQUIRED),

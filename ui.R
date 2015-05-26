@@ -128,13 +128,13 @@ shinyUI(navbarPage(
                wellPanel( 
                    helpText(h4("Advanced Options")), 
                    
-                   checkboxInput("slider_show", 
+                   checkboxInput("show_inputs", 
                                  label = "Show?",
                                  FALSE),
                    
                    conditionalPanel(
                        # only show if the "Advanced Options" box is ticked
-                       condition = "input.slider_show == true",
+                       condition = "input.show_inputs == true",
                        
                        bsButton("update_explore_cf_cases",
                                 "Update Plot",
