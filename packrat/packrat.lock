@@ -1,13 +1,13 @@
 PackratFormat: 1.4
 PackratVersion: 0.4.3
-RVersion: 3.1.3
-Repos: CRAN=http://cran.rstudio.com,
+RVersion: 3.2.0
+Repos: CRAN=http://cran.fhcrc.org/,
     CRANextra=http://www.stats.ox.ac.uk/pub/RWin
 
 Package: BH
 Source: CRAN
-Version: 1.55.0-3
-Hash: 1c7274ffc895d2c8f23ae98d83a912ed
+Version: 1.58.0-1
+Hash: e85f8550fd05942d46bc4ac2d6172779
 
 Package: Cairo
 Source: CRAN
@@ -19,6 +19,11 @@ Source: CRAN
 Version: 0.3.1
 Hash: 3a9e85b26ec3ab570266bccb3f9de055
 
+Package: MASS
+Source: CRAN
+Version: 7.3-40
+Hash: fe498e489ace7401560fde3a1bf891ec
+
 Package: R6
 Source: CRAN
 Version: 2.0.1
@@ -29,15 +34,10 @@ Source: CRAN
 Version: 1.1-2
 Hash: 5203278413b09be06483c5ac1920bb05
 
-Package: RJSONIO
-Source: CRAN
-Version: 1.3-0
-Hash: 8b1341dfd547c90ed4b3365d5aa46a7b
-
 Package: Rcpp
 Source: CRAN
-Version: 0.11.5
-Hash: 3e452cb48f3ec8a7cf27fb9ab8624639
+Version: 0.11.6
+Hash: 004f4ffa4d0f4a3d177f2090799225e8
 
 Package: assertthat
 Source: CRAN
@@ -67,14 +67,14 @@ Hash: 89dc4c8734dad5322bb3c5c2af09056f
 Package: dplyr
 Source: CRAN
 Version: 0.4.1
-Hash: 3bcfd4ae622d206d1f0cd9f1c759846d
+Hash: 4ce20c40c8a1adf59071cf9616cbcec5
 Requires: BH, DBI, R6, Rcpp, assertthat, lazyeval, magrittr
 
 Package: ggplot2
 Source: CRAN
 Version: 1.0.1
 Hash: 06a8e5faacfd76c9e4ab11a5b7ad94d6
-Requires: digest, gtable, plyr, proto, reshape2, scales
+Requires: MASS, digest, gtable, plyr, proto, reshape2, scales
 
 Package: gtable
 Source: CRAN
@@ -90,8 +90,13 @@ Requires: digest
 Package: httpuv
 Source: CRAN
 Version: 1.3.2
-Hash: 1534fecf898455255e27d84e6ce94e2d
+Hash: 4792d801d973965e73a7a35678310708
 Requires: Rcpp
+
+Package: jsonlite
+Source: CRAN
+Version: 0.9.16
+Hash: d96313db22c1ea2028538db1fc96fe5a
 
 Package: labeling
 Source: CRAN
@@ -110,14 +115,19 @@ Hash: 38d492cf072bc9f3c73bda2aee3d0e23
 
 Package: mime
 Source: CRAN
-Version: 0.2
-Hash: 9179db921fcb2e5be44e217042ed06bc
+Version: 0.3
+Hash: 843fd754c122f266d910a04642e0703d
 
 Package: munsell
 Source: CRAN
 Version: 0.4.2
 Hash: fa8af6d040041439b249351e9d16ae9a
 Requires: colorspace
+
+Package: nnet
+Source: CRAN
+Version: 7.3-9
+Hash: 13e45225e0075d2ade147141024826c4
 
 Package: packrat
 Source: CRAN
@@ -126,8 +136,8 @@ Hash: 16c72d5c802629fae5a4abca901e0199
 
 Package: plyr
 Source: CRAN
-Version: 1.8.1
-Hash: 6a4457c04af4cf5e4a8166ff59bcfd96
+Version: 1.8.2
+Hash: 70681a5a00608b6137b753e1b5994e4a
 Requires: Rcpp
 
 Package: proto
@@ -138,7 +148,7 @@ Hash: 668a9e87cedbdc5f56c396edf1bd2648
 Package: reshape2
 Source: CRAN
 Version: 1.4.1
-Hash: d3d77b083fd5485f674487aa23011ea7
+Hash: e207efbaabcdff1aa2bc697369b62b0c
 Requires: Rcpp, plyr, stringr
 
 Package: scales
@@ -149,15 +159,21 @@ Requires: RColorBrewer, dichromat, labeling, munsell, plyr
 
 Package: shiny
 Source: CRAN
-Version: 0.11.1
-Hash: d09cdcd85e54b44e91af964cb979508f
-Requires: R6, RJSONIO, digest, htmltools, httpuv, mime, xtable
+Version: 0.12.0
+Hash: 9de2350b6cb309237d47adcd0a9bb924
+Requires: R6, digest, htmltools, httpuv, jsonlite, mime, xtable
 
 Package: shinyBS
 Source: CRAN
 Version: 0.61
 Hash: 48a948722d53ae93d189c24be31a28a8
 Requires: htmltools, shiny
+
+Package: shinythemes
+Source: CRAN
+Version: 1.0.1
+Hash: 92a26525e1ded83eff1ea7e8ba493164
+Requires: shiny
 
 Package: simcf
 Source: github
@@ -167,6 +183,7 @@ GithubRepo: tile-simcf
 GithubUsername: chrisadolph
 GithubRef: master
 GithubSha1: 655584423a47dffa838d7e4bd863ac28461712f2
+GithubSubdir: simcf
 
 Package: stringi
 Source: CRAN
@@ -175,8 +192,9 @@ Hash: 955e96fc5961bf9f7b3ca916f9b1e606
 
 Package: stringr
 Source: CRAN
-Version: 0.6.2
-Hash: cdde0cfa0f52cffeaca23a11a3899779
+Version: 1.0.0
+Hash: 513045488dcf8019cc2f4305dc7d1f90
+Requires: magrittr, stringi
 
 Package: tidyr
 Source: CRAN

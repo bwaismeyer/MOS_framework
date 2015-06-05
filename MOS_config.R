@@ -2,7 +2,7 @@
 # Contact: bwaismeyer@gmail.com
 
 # Date created: 5/12/2015
-# Date updated: 5/26/2015
+# Date updated: 6/5/2015
 
 ###############################################################################
 ## SCRIPT OVERVIEW
@@ -76,6 +76,20 @@
 # - Dot Cloud Plot Addendum (Optional)
 #   - Same but for the dot cloud plot (dot_cloud_addendum).
 #   - Set this variable to NULL if you don't want to add anything.
+#
+# - More Info Modal (Optional)
+#   - If you want additional information about the plots to be available to
+#     the user but you don't want to clutter up the space beneath the plot
+#     with a lot of text...
+#   - One option is to simply put HTML anchor tags and links into the relevant
+#     addendum.
+#   - However, if you don't want your user to have to leave the application,
+#     you can adjust the features in this section to make a modal link and
+#     window available to the user. The link will appear after the plot
+#     addendum (if there is one).
+#   - Modal details: http://ebailey78.github.io/shinyBS/docs/Modals.html
+#   - Simply set "more_info_link_text" to NULL if you don't want to use the
+#     modal at all.
 
 ###############################################################################
 ## Name the Application Instance
@@ -152,6 +166,7 @@ variable_configuration <- list(
         ribbon_plot_summary = paste0("As whisker length increases, the ",
                                      "simulated likelihood of the kitty being ",
                                      "huggable also increases."),
+        custom_x_axis_ticks = NULL,
         x_axis_candidate    = TRUE,
         slider_candidate    = TRUE,
         slider_rounding     = 1,
@@ -164,6 +179,7 @@ variable_configuration <- list(
         definition          = paste0("A description of the cat's apparent ",
                                      "biological sex."),
         ribbon_plot_summary = paste0(""),
+        custom_x_axis_ticks = NULL,
         x_axis_candidate    = FALSE,    
         slider_candidate    = FALSE,
         slider_rounding     = NA,
@@ -220,28 +236,55 @@ ribbon_addendum <-
 # the language to be appropriate for the application instance and audience. Set
 # to NULL if you simply want the this are to be blank.
 dot_cloud_addendum <- 
-    paste0("<strong>What Does This Graph Show Us?</strong>",
+    paste0("<strong>What Does This Tool Do?</strong>",
            
-           "<br>Each time the 'SIMULATE' button is clicked, the cat you ",
-           "described (i.e., the values you set the inputs to) is run through ",
-           "1000 versions of the cat huggability model. These versions vary ",
-           "based on how much uncertainty there is in the model."
+           "<br>This tool allows you to describe a specific cat ",
+           "observe how likely each outcome is for simulations based ",
+           "on that cat description.", 
            
-           "<br><br>For each model run, we get an estimate of how likely ",
-           "the four outcomes are. We plot every estimate by its outcome.",
+           "<br><br>You describe the cat by setting the inputs to the values ",
+           "that best fit it.",
            
-           "<br><br>So, there are 1000 points by each outcome - one for every ",
-           "model run.",
+           "<br><br>Each time the 'SIMULATE' button is clicked, the cat ",
+           "you described is run through 1000 versions of our ",
+           "cat huggability model. These versions vary based on how much ",
+           "uncertainty there is in the model.",
            
-           "<br><br>The resulting graph gives us a sense of which outcomes ",
-           "tend to be more likely and how much uncertainty there is in the ",
-           "simulation.",
+           "<br><br>For each model version, we get an estimate of how likely ",
+           "the outcomes are. We plot every estimate by its outcome.",
            
-           "<br><br><strong>What Is This Simulation Based On?</strong>",
-           
-           "<br>The simulation is modeled on real data: a survey of 32 cats ",
+           "<br><br>The resulting plot gives us a sense of how likely the ",
+           "outcomes tend to be across all the model versions (where do the ",
+           "dots tend to cluster for each outcome?) while also suggesting ",
+           "how much confidence we should have in our model's ability to ", 
+           "accurately simulate outcomes for the described cat ",
+           "(how spread out are the dots for each outcome?)")
+
+###############################################################################
+## More Info Modal (Optional)
+
+# What should be the text for the user-facing link that can open the more info
+# modal? Plain text string - no HTML formatting (will be formatted to look like 
+# a section title in ui.R). Set to NULL if you don't want to use the more info
+# modal at all.
+more_info_link_text <- "What is the simulation based on?"
+
+# Set the title for the modal window. 
+more_info_title <- "What is the simulation based on?"
+
+# Build the body for the modal window. This can technically be any Shiny R
+# UI objects, but by default should simply be a block of HTML formatted text.
+# You will need to reference and adjust the ui.R and server.R scripts if you 
+# want more complex Shiny R features here.
+more_info_body <- 
+    paste0("The simulation is modeled on real data: a survey of 32 cats ",
            "conducted by a trained researcher. The survey was conducted in ",
            "a suburb in Seattle, WA.")
+
+
+###############################################################################
+## END OF SCRIPT
+###############################################################################
 
 ###############################################################################
 ## END OF SCRIPT

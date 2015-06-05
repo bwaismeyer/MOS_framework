@@ -2,7 +2,7 @@
 # Contact: bwaismeyer@gmail.com
 
 # Date created: 3/23/2015
-# Date updated: 5/20/2015
+# Date updated: 6/4/2015
 
 ###############################################################################
 ## SCRIPT OVERVIEW
@@ -95,7 +95,7 @@ shinyServer(function(input, output, session) {
         # filter the variable_configuration dataframe for the row with the
         # matching UI name, extract the column name
         # UNLESS special variable "None" is selected, in which case return NULL
-        if(input$facet_choice == "None") {
+        if(input$facet_choice == "No Comparison Selected") {
             return(NULL)
         } else {
             # explore raw_pretty_pairs to find the correct raw name
@@ -182,6 +182,17 @@ shinyServer(function(input, output, session) {
         })
     )
     
+    # construct the summary text for the ribbon plot ("Explore Mode")
+    output$ribbon_text <- renderText({
+        build_ribbon_summary(x_axis_raw_name(), 
+                             facet_raw_name(),
+                             variable_configuration,
+                             # if "Advanced Options" selected, we want to drop
+                             # the plot summary
+                             include_plot_summary = !input$show_inputs)
+        
+    })
+        
     ## Create the base counterfactual case set.
     base_cf_cases <- reactive({
         get_cf_cases(exp_data,
@@ -324,16 +335,6 @@ shinyServer(function(input, output, session) {
                             variable_configuration[[x_axis_var]]$
                                 custom_x_axis_ticks)
         )
-    })
-    
-    # construct the summary text for constructed ribbon plot
-    output$ribbon_text <- renderText({
-        build_ribbon_summary(x_axis_raw_name(), 
-                             variable_configuration,
-                             # if "Advanced Options" selected, we want to drop
-                             # the plot summary
-                             include_plot_summary = !input$show_inputs)
-        
     })
     
     # "Single Case Mode" dot cloud plot
